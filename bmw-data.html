@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>BMW data guide · Boostline</title>
+    <meta name="description" content="Set up the BMW DME data in Boostline for boost target, wastegate, rail pressure, per-cylinder timing and hundreds more channels." />
+    <link rel="icon" href="img/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="./"><img src="img/icon.svg" alt="" /><span>Boostline</span></a>
+        <nav>
+          <a href="bmw-data.html" aria-current="page">BMW data guide</a>
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <h1>Setting up the BMW DME data</h1>
+        <p class="lead">
+          Without this data, a car only shows the standard OBD-II channels. Import it once to get boost target, wastegate, rail pressure,
+          lambda target, per-cylinder timing and knock, VANOS and hundreds more.
+        </p>
+        <p>
+          The measurements come from BMW's diagnostic files, decoded by the open-source
+          <a href="https://github.com/gediz/bmw-unified-db">bmw-unified-db</a> project. The data is BMW-copyrighted, so Boostline downloads
+          it to your device instead of shipping it. You need an internet connection for the download; the car doesn't need to be connected.
+        </p>
+        <div class="note">
+          On an iPhone or iPad, do this at home on a WiFi network with internet, <b>before</b> you go to the car. The adapter's WiFi network
+          has no internet.
+        </div>
+
+        <h2>1. Open Settings › BMW DME data</h2>
+        <p>Open <b>Settings</b>. The <b>BMW DME data</b> card is right below <b>Connection</b>.</p>
+
+        <h2>2. Tap Download &amp; import</h2>
+        <p>Boostline then:</p>
+        <ol>
+          <li>Downloads the latest release of bmw-unified-db from GitHub (about 130 MB).</li>
+          <li>Checks it against the release's SHA-256 checksum.</li>
+          <li>Unpacks it and keeps only the engine computer (DME) tables, about 3 MB.</li>
+          <li>Deletes the temporary files.</li>
+        </ol>
+        <p>
+          Progress appears next to the buttons: <i>Downloading…</i>, <i>Verifying checksum…</i>, <i>Unpacking…</i>, <i>Extracting DME
+          tables…</i>. On a normal connection it takes about a minute.
+        </p>
+
+        <h2>3. Check the result</h2>
+        <p>
+          When the import finishes, the card shows <b>Imported data</b> with the source version, the date, and how many engine computers and
+          measurements were imported. <b>Show list</b> shows what's covered:
+        </p>
+        <ul>
+          <li><b>DME data:</b> the name of BMW's data file for that engine computer.</li>
+          <li><b>Engines / Chassis:</b> where that file is used.</li>
+          <li><b>Channels:</b> how many measurements it provides.</li>
+          <li>
+            <b>Auto:</b> <i>yes</i> means Boostline recognizes it by itself when you connect; <i>manual</i> means you choose it yourself (step
+            4).
+          </li>
+        </ul>
+
+        <h2>4. Leave DME selection on Auto, unless your car needs a manual choice</h2>
+        <p>
+          With <b>Auto (recommended)</b>, Boostline asks the engine computer to identify itself when you connect and picks the matching data.
+          Choose an entry in the <b>DME selection</b> list yourself when:
+        </p>
+        <ul>
+          <li>
+            <b>Your car has a 2016–2019 F-series B58</b> (first generation: 340i, 440i, M240i, M140i, 540i). BMW's files for that engine
+            computer (<code>dme_bx80</code>, <code>dme_bx81</code>, <code>dme_bx82</code>) carry no ID to match. Pick the one for your car's
+            integration level (I-level), which E-Sys, ISTA or BimmerCode can show you: <code>dme_bx80</code> is I-410,
+            <code>dme_bx81</code> is I-411, <code>dme_bx82</code> is I-420. If you don't know your I-level, start with
+            <code>dme_bx82</code>; if many channels show “—”, try the others.
+          </li>
+          <li>
+            <b>The card says “(no match)” after you connect.</b> Choose the entry for your engine, and please
+            <a href="https://github.com/clucraft/boostline-site/issues/new">report the ID it showed</a> so that Auto can learn it.
+          </li>
+        </ul>
+        <p>Changes take effect the next time you connect.</p>
+
+        <h2>5. Connect and check</h2>
+        <p>Connect as usual. When the data is in use:</p>
+        <ul>
+          <li><b>Top bar:</b> tap the car (VIN) next to the connection status. The menu shows <b>DME data</b>, for example <code>dme8ff_r</code>.</li>
+          <li><b>Settings:</b> the BMW DME data card shows the ID your engine computer reported and which data it matched.</li>
+          <li>
+            <b>Channels:</b> BMW channels appear with English names, such as <i>Boost target</i>, <i>Wastegate position</i>, <i>Rail pressure
+            target</i> and <i>Ignition timing cyl 1–6</i>. A <b>DME</b> group holds every other measurement under BMW's original (German)
+            names; search to find them.
+          </li>
+        </ul>
+        <p class="muted">
+          If the car refuses a BMW measurement that also exists in OBD-II (such as engine speed), Boostline goes back to the OBD-II reading for
+          that channel by itself.
+        </p>
+
+        <h2>Updating, importing a file, removing</h2>
+        <ul>
+          <li><b>Update from GitHub</b> imports the newest bmw-unified-db release. Do this now and then; the project keeps improving.</li>
+          <li>
+            <b>Import file…</b> works without internet on the device: download <code>bmw.sqlite.gz</code> from the
+            <a href="https://github.com/gediz/bmw-unified-db/releases">bmw-unified-db releases</a> elsewhere, copy it over (on an iPhone or
+            iPad, into the Files app), and choose it here. Both <code>.sqlite</code> and <code>.sqlite.gz</code> work.
+          </li>
+          <li><b>Remove</b> deletes the imported data. Boostline goes back to the standard OBD-II channels.</li>
+        </ul>
+
+        <h2>Troubleshooting</h2>
+        <table>
+          <tr>
+            <th>Problem</th>
+            <th>What to do</th>
+          </tr>
+          <tr>
+            <td>The download fails</td>
+            <td>
+              Check that the device has internet (not the adapter's WiFi). A firewall or proxy may also block GitHub; use
+              <b>Import file…</b> with a downloaded <code>bmw.sqlite.gz</code>.
+            </td>
+          </tr>
+          <tr>
+            <td>“(no match)” after connecting</td>
+            <td>Choose the DME data yourself (step 4) and report the ID.</td>
+          </tr>
+          <tr>
+            <td>Some channels show “—”</td>
+            <td>
+              The engine computer didn't answer for that measurement. Run <b>Settings › Connection › Run diagnostics</b> and send the report
+              and a log (see <a href="support.html">Support</a>).
+            </td>
+          </tr>
+        </table>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div class="wrap">
+        <nav>
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy policy</a>
+          <a href="bmw-data.html">BMW data guide</a>
+        </nav>
+        <div>
+          Boostline is not affiliated with or endorsed by BMW AG, MHD or bootmod3. BMW is a trademark of BMW AG; other names are trademarks of
+          their owners.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

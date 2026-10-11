@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Support · Boostline</title>
+    <meta name="description" content="Help with connecting Boostline to your BMW, and how to report a problem." />
+    <link rel="icon" href="img/icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header class="site">
+      <div class="wrap">
+        <a class="brand" href="./"><img src="img/icon.svg" alt="" /><span>Boostline</span></a>
+        <nav>
+          <a href="bmw-data.html">BMW data guide</a>
+          <a href="support.html" aria-current="page">Support</a>
+          <a href="privacy.html">Privacy</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <h1>Support</h1>
+        <p class="lead">Answers to common questions, and how to get in touch.</p>
+
+        <h2>Contact</h2>
+        <p>
+          Report a problem or ask a question by opening an issue on GitHub:
+          <a href="https://github.com/clucraft/boostline-site/issues/new">github.com/clucraft/boostline-site/issues</a> (you need a free GitHub
+          account). Please include:
+        </p>
+        <ul>
+          <li>Your device and iOS version, and the Boostline version (<b>Settings › About</b>).</li>
+          <li>Your car (model, year, engine) and which adapter you use.</li>
+          <li>
+            For connection problems, the report from <b>Settings › Connection › Run diagnostics</b>. It is saved in the Files app under
+            Boostline › Diagnostics. It may contain your car's VIN; remove it if you prefer.
+          </li>
+        </ul>
+
+        <h2>Getting connected</h2>
+        <details open>
+          <summary>How do I connect to my car?</summary>
+          <ol>
+            <li>Plug the MHD or bootmod3 WiFi adapter into the car's OBD port and switch the ignition on.</li>
+            <li>
+              In the iPhone's WiFi settings, join the adapter's network: <b>MHD ENET</b> for the MHD adapter (not <b>MHD ECA</b>), or
+              <b>BM3-NET…</b> for the bootmod3 adapter.
+            </li>
+            <li>Open Boostline, choose the adapter in <b>Settings › Connection</b>, and tap <b>Connect</b> in the top bar.</li>
+            <li>The first time, iOS asks to let Boostline find devices on your local network. Tap <b>Allow</b>.</li>
+          </ol>
+        </details>
+        <details>
+          <summary>Boostline can't find my adapter</summary>
+          <ul>
+            <li>Check that the phone is on the adapter's WiFi network and that the ignition is on.</li>
+            <li>
+              Check that local network access is allowed: iOS <b>Settings › Privacy &amp; Security › Local Network › Boostline</b>.
+            </li>
+            <li>
+              Enter the adapter's IP address in <b>Settings › Connection › Gateway IP</b>. iOS doesn't let apps search the network the way a
+              computer can, so Boostline tries the most likely addresses first.
+            </li>
+            <li>If the adapter's own app (MHD, bootmod3) is connected to the car, close it and try again.</li>
+            <li>Still stuck? Run diagnostics and send the report (see Contact).</li>
+          </ul>
+        </details>
+        <details>
+          <summary>Can I use an ENET cable?</summary>
+          <p>
+            It should work with an Ethernet adapter for the iPhone or iPad (USB-C to Ethernet), but it hasn't been tested yet. Please
+            report how it goes.
+          </p>
+        </details>
+
+        <h2>Channels and data</h2>
+        <details>
+          <summary>I only see a few channels</summary>
+          <p>
+            Without the BMW DME data, a car only reports the standard OBD-II channels. Import the data once, at home on a WiFi network with
+            internet: <a href="bmw-data.html">BMW data guide</a>. The adapter's WiFi has no internet, so do it before you go to the car.
+          </p>
+        </details>
+        <details>
+          <summary>Some channels show “—”</summary>
+          <p>
+            The engine computer didn't answer for that measurement. Some cars don't have every measurement. If a channel that also exists in
+            OBD-II (such as engine speed) is refused, Boostline switches to the OBD-II reading by itself. For other channels, run diagnostics
+            and send the report with a log.
+          </p>
+        </details>
+        <details>
+          <summary>Where are my logs?</summary>
+          <p>
+            In the Files app: <b>On My iPhone</b> (or <b>On My iPad</b>) <b>› Boostline</b>, in the folders <code>Logs</code>,
+            <code>Dyno</code>, <code>Drag</code> and <code>Exports</code>. Logs are CSV files you can open in a spreadsheet or send to your
+            tuner.
+          </p>
+        </details>
+        <details>
+          <summary>Logging stopped when I switched apps</summary>
+          <p>
+            iOS pauses apps in the background, so keep Boostline on screen while logging. It keeps the screen awake while it is connected.
+          </p>
+        </details>
+
+        <h2>Safety</h2>
+        <details>
+          <summary>Can Boostline harm my car?</summary>
+          <p>
+            Boostline only reads data, using read-only diagnostic requests. It doesn't flash, code, clear fault codes or change anything in
+            the car.
+          </p>
+        </details>
+        <details>
+          <summary>Where can I do dyno and drag runs?</summary>
+          <p>
+            Only where full-throttle acceleration is legal and safe: on a closed course, a drag strip or a dyno, never on public roads. Set
+            the run up before you drive and keep your eyes on the road; Boostline records the run on its own. Road-dyno figures are estimates
+            from acceleration, not measurements on a calibrated dynamometer.
+          </p>
+        </details>
+      </div>
+    </main>
+
+    <footer class="site">
+      <div class="wrap">
+        <nav>
+          <a href="support.html">Support</a>
+          <a href="privacy.html">Privacy policy</a>
+          <a href="bmw-data.html">BMW data guide</a>
+        </nav>
+        <div>
+          Boostline is not affiliated with or endorsed by BMW AG, MHD or bootmod3. BMW is a trademark of BMW AG; other names are trademarks of
+          their owners.
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>
